@@ -142,6 +142,127 @@ Die `transform<Readonly<Date>>()` Transformation ist **minimal invasiv** und bee
 
 
 
+
+
+
+
+
+
+
+
+<br><br>
+
+--- 
+
+<br><br>
+
+
+
+# Utility types
+
+## `z.infer`vs `z.output` 
+
+<details><summary>Click to expand..</summary>
+
+In **Zod** sind `z.infer` und `z.output` eng verwandt, aber sie treffen eine leicht unterschiedliche Aussage über den Typ.
+
+---
+
+### `z.infer`
+
+* **Verwendung:** `z.infer<typeof schema>`
+* **Bedeutung:** „Was ist der **TypeScript-Typ**, der zu diesem Schema passt?“
+* Nutzt man, wenn man aus einem Schema einen Typ extrahieren will, ohne es auswerten zu müssen.
+* Beispiel:
+
+```ts
+const userSchema = z.object({
+  id: z.string(),
+  age: z.number().optional(),
+});
+
+// TS-Typ: { id: string; age?: number | undefined }
+type User = z.infer<typeof userSchema>;
+```
+
+---
+
+### `z.output`
+
+* **Verwendung:** `z.output<typeof schema>`
+* **Bedeutung:** „Welcher Typ kommt **nach der Validierung/Parsing** aus dem Schema raus?“
+* Nützlich, wenn das Schema **Transformationen** oder **Refinements** hat.
+
+Beispiel mit Transformation:
+
+```ts
+const userSchema = z.object({
+  id: z.string(),
+  age: z.string().transform(Number), // string rein, number raus
+});
+
+// Input-Typ: { id: string; age: string }
+type UserInput = z.input<typeof userSchema>;
+
+// Output-Typ: { id: string; age: number }
+type UserOutput = z.output<typeof userSchema>;
+```
+
+---
+
+### Unterschied in Kurzform 🥊
+
+* **`z.infer`** = alter Alias für `z.output` (in einfachen Fällen ohne Transformationen gleich).
+* **`z.output`** = genauerer moderner Weg, um zu sagen: „Was kommt nach dem Parsen raus?“
+* Ergänzend: **`z.input`** = „Was darf reingegeben werden?“
+
+---
+
+👉 Faustregel:
+
+* Für alte, transformationlose Schemas reicht `z.infer`.
+* Für alles mit `.transform()` oder unterschiedlichem Input/Output → lieber `z.input` und `z.output` nutzen.
+
+---
+
+Soll ich dir ein **Vergleichs-Snippet** schreiben, das alle drei (`infer`, `input`, `output`) gegenüberstellt, damit du die Unterschiede sofort siehst?
+
+
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <br><br>
 
 --- 
