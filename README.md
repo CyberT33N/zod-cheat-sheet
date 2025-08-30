@@ -2,6 +2,24 @@
 
 
 
+
+
+# Codecs
+https://zod.dev/codecs?id=stringtonumber
+https://colinhacks.com/essays/introducing-zod-codecs?utm_source=tldrdevops
+
+
+
+
+
+<br><br>
+
+--- 
+
+
+<br><br>
+
+
 # Schemas
 
 ## Properties
