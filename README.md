@@ -3,6 +3,11 @@
 
 
 
+# docs
+- https://zod.dev/llms.txt
+
+
+
 
 # Codecs
 https://zod.dev/codecs?id=stringtonumber
